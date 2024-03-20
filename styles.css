@@ -43,23 +43,38 @@ main{
     gap: 40px;
 }
 
+#etch-options{
+    color: var(--main-accent-color);
+    font-size: 18px;
+}
+
 #etch-display{
     width: 640px;
     height: 640px;
 
-    background-color: lightblue;
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
 }
 
 .grid-square{
     user-select: none;
-    font-size: 10px;
 
 }
 
 ul{
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+li{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+#grid-size:last-child{
+    justify-self: center;
 }
 
 .test:hover{

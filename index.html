@@ -5,17 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <script defer src="grid-logic.js"></script>
+    <script defer src="grid-ui.js"></script>
 </head>
 <body>
     <header>
-        <h1>Etch-a-Sketch</h1>
+        <h1>Etch-A-Sketch</h1>
     </header>
     <main>
         <div id="etch-options">
             <ul>
-                <li>Grid Size</li>
-                <li></li>
+                <li>
+                    <label for="brush-color-picker">Color</label>
+                    <input type="color" id="brush-color-picker">
+                </li>
+                <li>
+                    <h4>Brush Options</h4>
+                    <span>
+                        <input type="radio" id="option-draw" name="brush-type" value="draw">
+                        <label for="option-draw">Draw</label>
+                    </span>
+                    <span>
+                        <input type="radio" id="option-erase" name="brush-type" value="erase">
+                        <label for="option-erase">Erase</label>
+                    </span>
+                    <span>
+                        <input type="radio" id="option-shade" name="brush-type" value="shade">
+                        <label for="option-shade">Shade</label>
+                    </span>
+                    
+                    <span>
+                        <input type="radio" id="option-lighten" name="brush-type" value="lighten">
+                        <label for="option-lighten">Lighten</label>
+                    </span>
+                    <span>
+                        <input type="radio" id="option-rainbow" name="brush-type" value="rainbow">
+                        <label for="option-rainbow">Rainbow</label>
+                    </span>
+                </li>
+                <li id="grid-size">
+                    <p>Grid Size</p>
+                    <input type="range" min="1" max="6" step="1">
+                    <p>2 x 2</p>
+                </li>
+                <li><button id="clear-btn">Clear Grid</button></li>
             </ul>
         </div>
         <div id="etch-display">

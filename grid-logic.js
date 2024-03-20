@@ -4,6 +4,7 @@ const etchDisplay = document.querySelector("#etch-display");
 
 let gridSize = 32;
 let squareSize = 0;
+let primaryColor = "#990000";
 
 function debugColor(event)
 {
@@ -44,27 +45,52 @@ document.addEventListener("mouseup", (event) => {
 
 }, true);
 
-let currentSquareID = "";
 
-function draw(event) {
+function getSquareID(event) {
+    let currentSquareID = "";
+
     let mouseX = Math.floor(event.clientX);
     let mouseY = Math.floor(event.clientY);
     let gridXPosition = Math.floor(etchDisplay.getBoundingClientRect().x);
     let gridYPosition = Math.floor(etchDisplay.getBoundingClientRect().y);
 
     currentSquareID = "#A" + Math.ceil((mouseX - gridXPosition) / squareSize) + "_" + Math.ceil((mouseY - gridYPosition) / squareSize);
-    
-    document.querySelector(currentSquareID).style.backgroundColor = "black";
-    let currentOpacity = Number(document.querySelector(currentSquareID).style.opacity);
-    console.log(currentOpacity + 0.1);
-    document.querySelector(currentSquareID).style.opacity = (currentOpacity >= 1) ? 1  : (currentOpacity + .1).toString();
 
+    drawClassic(currentSquareID);
+
+    
+}
+
+function drawClassic(squareID) {
+    let currentSquare = document.querySelector(squareID);
+    currentSquare.style.backgroundColor = primaryColor;
+}
+
+function drawShade(squareID) {
+    let currentSquare = document.querySelector(squareID);
+    currentSquare.style.backgroundColor = "black";
+
+    let currentOpacity = Number(currentSquare.style.opacity);
+    currentSquare.style.opacity = (currentOpacity >= 1) ? 1 : (currentOpacity + .1).toString();
+}
+
+function drawLighten(squareID) {
+    let currentSquare = document.querySelector(squareID);
+    currentSquare.style.backgroundColor = "black";
+
+    let currentOpacity = Number(currentSquare.style.opacity);
+    currentSquare.style.opacity = (currentOpacity <= 0) ? 0 : (currentOpacity - .1).toString();
+}
+
+function drawErase(squareID) {
+    let currentSquare = document.querySelector(squareID);
+    currentSquare.style.backgroundColor = "white";
 
 }
 
 function drawDrag(event) {
     if(isMouseDown)
-        draw(event)
+        getSquareID(event)
 }
 function clear()
 {
@@ -81,7 +107,7 @@ generateGrid(gridSize);
 
 //etchDisplay.addEventListener("onmousemove", (event) => getCurrentGridSquare(event));
 etchDisplay.onmousemove = (event) => drawDrag(event);
-etchDisplay.onclick = (event) => draw(event);
+etchDisplay.onclick = (event) => getSquareID(event);
 
 
 
