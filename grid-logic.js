@@ -1,15 +1,9 @@
 const etchDisplay = document.querySelector("#etch-display");
 
-
-
-let gridSize = 32;
+let gridSize = 16;
 let squareSize = 0;
-let primaryColor = "#990000";
-
-function debugColor(event)
-{
-    console.log("Mouse Down on " + event.target.id);
-}
+let primaryColor = "#000000";
+let brushType = "shade";
 
 function generateGrid(size) {
 
@@ -46,6 +40,7 @@ document.addEventListener("mouseup", (event) => {
 }, true);
 
 
+
 function getSquareID(event) {
     let currentSquareID = "";
 
@@ -54,21 +49,18 @@ function getSquareID(event) {
     let gridXPosition = Math.floor(etchDisplay.getBoundingClientRect().x);
     let gridYPosition = Math.floor(etchDisplay.getBoundingClientRect().y);
 
-    currentSquareID = "#A" + Math.ceil((mouseX - gridXPosition) / squareSize) + "_" + Math.ceil((mouseY - gridYPosition) / squareSize);
-
-    drawClassic(currentSquareID);
-
-    
+    return "#A" + Math.ceil((mouseX - gridXPosition) / squareSize) + "_" + Math.ceil((mouseY - gridYPosition) / squareSize);    
 }
 
 function drawClassic(squareID) {
     let currentSquare = document.querySelector(squareID);
+    currentSquare.style.opacity = 1.0;
     currentSquare.style.backgroundColor = primaryColor;
 }
 
 function drawShade(squareID) {
     let currentSquare = document.querySelector(squareID);
-    currentSquare.style.backgroundColor = "black";
+    currentSquare.style.backgroundColor = primaryColor;
 
     let currentOpacity = Number(currentSquare.style.opacity);
     currentSquare.style.opacity = (currentOpacity >= 1) ? 1 : (currentOpacity + .1).toString();
@@ -76,7 +68,7 @@ function drawShade(squareID) {
 
 function drawLighten(squareID) {
     let currentSquare = document.querySelector(squareID);
-    currentSquare.style.backgroundColor = "black";
+    currentSquare.style.backgroundColor = primaryColor;
 
     let currentOpacity = Number(currentSquare.style.opacity);
     currentSquare.style.opacity = (currentOpacity <= 0) ? 0 : (currentOpacity - .1).toString();
@@ -88,10 +80,40 @@ function drawErase(squareID) {
 
 }
 
-function drawDrag(event) {
-    if(isMouseDown)
-        getSquareID(event)
+function drawRainbow(squareID) {
+    let currentSquare = document.querySelector(squareID);
+    currentSquare.style.backgroundColor = "rgb(" + Math.floor(Math.random() * 255) +", " + Math.floor(Math.random() * 255) + ", " + Math.floor(Math.random() * 255) + ")";
 }
+
+function draw(event){
+    let squareID = getSquareID(event);
+
+    switch (brushType) {
+        case "draw":
+            drawClassic(squareID);
+            break;
+        case "erase":
+            drawErase(squareID);
+            break
+        case "shade":
+            drawShade(squareID);
+            break;
+        case "lighten":
+            drawLighten(squareID);
+            break;
+        case "rainbow":
+            drawRainbow(squareID);
+            break;
+    }
+}
+
+
+
+function drag(event) {
+    if(isMouseDown)
+        draw(event)
+}
+
 function clear()
 {
     etchDisplay.replaceChildren();
@@ -105,9 +127,9 @@ function clear()
 
 generateGrid(gridSize);
 
-//etchDisplay.addEventListener("onmousemove", (event) => getCurrentGridSquare(event));
-etchDisplay.onmousemove = (event) => drawDrag(event);
-etchDisplay.onclick = (event) => getSquareID(event);
+etchDisplay.onmousemove = (event) => drag(event);
+etchDisplay.onclick = (event) => draw(event);
+
 
 
 

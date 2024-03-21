@@ -17,12 +17,12 @@
             <ul>
                 <li>
                     <label for="brush-color-picker">Color</label>
-                    <input type="color" id="brush-color-picker">
+                    <input type="color" id="brush-color-picker" value="#000000">
                 </li>
                 <li>
                     <h4>Brush Options</h4>
                     <span>
-                        <input type="radio" id="option-draw" name="brush-type" value="draw">
+                        <input type="radio" id="option-draw" name="brush-type" value="draw" checked>
                         <label for="option-draw">Draw</label>
                     </span>
                     <span>
@@ -43,10 +43,10 @@
                         <label for="option-rainbow">Rainbow</label>
                     </span>
                 </li>
-                <li id="grid-size">
-                    <p>Grid Size</p>
-                    <input type="range" min="1" max="6" step="1">
-                    <p>2 x 2</p>
+                <li></li>
+                    <label for="grid-size-option">Grid Size</label>
+                    <input type="range" min="1" max="6" step="1" value="4"  id="grid-size-option">
+                    <p id="grid-size-display">16 x 16</p>
                 </li>
                 <li><button id="clear-btn">Clear Grid</button></li>
             </ul>

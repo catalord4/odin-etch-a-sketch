@@ -73,12 +73,11 @@ li{
     flex-direction: column;
     gap: 8px;
 }
-#grid-size:last-child{
-    justify-self: center;
-}
 
-.test:hover{
-    background-color: black;
+#clear-btn{
+    color :var(--main-accent-color);
+    background-color: var(--main-light-color);
+    border: 4px solid var(--main-dark-color);
 }
 
 footer{
